@@ -1,0 +1,68 @@
+@use "../abstracts/mixins";
+
+
+/* poppins-300 - latin */
+  @font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 300;
+    src: local(""), url("../fonts/poppins-v15-latin-300.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url("../fonts/poppins-v15-latin-300.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  /* poppins-regular - latin */
+  @font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: local(""),
+      url("../fonts/poppins-v15-latin-regular.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url("../fonts/poppins-v15-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  /* poppins-700 - latin */
+  @font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 700;
+    src: local(""), url("../fonts/poppins-v15-latin-700.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url("../fonts/poppins-v15-latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+
+  html {
+      font-size: 10px;
+  }
+  
+  body {
+    font-family: "Poppins";
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .text {
+    padding: 0;
+    margin: 0;
+  }
+  
+  h1, .h1 {
+    @include mixins.fluid-type(16, 64, 320, 1280);
+  }
+  
+  h2, .h2 {
+    @include mixins.fluid-type(14, 52, 320, 1280);
+  }
+
+  h1, h2, h3 { 
+    text-rendering: optimizeLegibility; 
+  }

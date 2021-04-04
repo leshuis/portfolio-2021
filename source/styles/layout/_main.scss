@@ -1,0 +1,34 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    > header {
+        flex: 1 1 0;
+        padding: 5px 20px;
+        background-color: white;
+        border-bottom: 1px solid grey;
+    }
+    > main {
+        flex: 100 1 auto;
+        padding: 10px 20px;
+        }
+    > footer {
+        flex: 1 1 0;
+        padding: 5px 20px;
+        background-color: white;
+        border-top: 1px solid grey;
+    }
+}
+
+main {
+    background: linear-gradient(270deg, #98c1e3, #2e80c5, #d8e42d);
+    background-size: 600% 600%;
+    animation: backgroundScroll 3s linear infinite alternate;
+}
+
+@keyframes backgroundScroll {
+    0%{background-position:0% 0%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 100%}
+}

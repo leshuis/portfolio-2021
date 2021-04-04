@@ -1,0 +1,213 @@
+@use "sass:math";
+
+/// fluidly resize type
+/// based on example here https://css-tricks.com/snippets/css/fluid-typography/
+/// @group Abstract
+/// @param {Number} $font-min - font size at minimal width
+/// @param {Number} $font-max - font size at maximal width
+/// @param {Number} $screen-min - Minimal Width
+/// @param {Number} $screen-max - Maximum width
+///
+/// @example scss - mobile to desktop
+///   @use "../abstracts/mixins"
+///
+///   .foo {
+///     @include mixins.fluid-type(16, 64, 320, 1280);
+///   }
+///
+
+@mixin fluid-type($font-min, $font-max, $screen-min, $screen-max) {
+  font-size: #{$font-min}px;
+
+  @media only screen and (min-width: #{$screen-min}px) {
+    font-size: calc(
+      #{$font-min}px + #{($font-max - $font-min)} * (100vw - #{$screen-min}px) / (#{$screen-max} - #{$screen-min})
+    );
+  }
+
+  @media only screen and (min-width: #{$screen-max}px) {
+    font-size: #{$font-max}px;
+  }
+}
+
+
+/// @group Abstract
+/// @author Hugo Giraudel
+/// @link http://codepen.io/SitePoint/pen/dppJzX/
+/// https://github.com/Threespot/frontline-sass/tree/master/src/mixins
+
+/// Computes the height of the tilted pseudo-element based on the given angle
+/// @access private
+@function fs-triangle-height($angle) {
+    $a: 100;// width is 100%
+    $opposite-angle: (90deg - $angle);
+  
+    // hypotenuse
+    $c: $a / fs-strip-unit(fs-sin($opposite-angle));
+  
+    // calculate height using Pythagorean theorem
+    $b: fs-sqrt(fs-pow($c, 2) - fs-pow($a, 2));
+  
+    // convert to percentage
+    @return (math.abs($b) * 1%);
+  }
+  
+  /// Apply an angled edge using a pseudo-element with a diagonal background
+/// @group Abstract
+  /// @param {Angle} $angle - Angle
+  /// @param {Color} $color - Background color
+  /// @param {String} $position ['top'] - Either `top` or `bottom`
+  /// @param {String} $pseudo ['before'] - Either `before` or `after`
+  @mixin fs-angle($angle, $color, $position: 'top', $pseudo: 'before') {
+    $height-ratio: fs-triangle-height($angle);
+    background-color: $color;
+    position: relative;
+  
+    &:#{$pseudo} {
+      content: '';
+      left: 0;
+      padding-top: $height-ratio;
+      position: absolute;
+      width: 100%;
+  
+      // 1. Use rgba() instead of “transparent” for Safari
+      // http://stackoverflow.com/a/30674347/673457
+      @if ($position == 'top') {
+        background-image: linear-gradient($angle, $color 50%, rgba($color, 0) 50%);
+        bottom: 100%;
+      }
+      @else {
+        background-image: linear-gradient($angle, rgba($color, 0) 50%, $color 50%);
+        top: 100%;
+      }
+    }
+  }
+  
+  /// Maintain aspect ratio
+/// @group Abstract
+/// @param {Number} $ratio - Aspect ratio (width / height)
+///
+/// @example scss - 16:9 aspect ratio
+///   .foo {
+///     @include fs-aspect-ratio(16/9);
+///   }
+///
+@mixin fs-aspect-ratio($ratio) {
+    display: block;
+    overflow: hidden;
+    position: relative;
+  
+    &:before {
+      content: '';
+      display: block;
+      padding-top: math.percentage(1 / $ratio);
+    }
+  }
+
+  /// Burger menu icon mixin
+/// @group Abstract
+/// @param {Number} $width [30px] - Icon width
+/// @param {Number} $height [5px] - Bar height
+/// @param {Number} $gutter [3px] - Gap between bars
+/// @param {Color} $color [currentColor] - Icon color
+/// @param {Number} $border-radius [0] - Border radius
+/// @param {Number} $transition-duration [300ms] - Transition duration
+/// @author Joren Van Hee
+/// @link https://github.com/jorenvanhee/sass-burger
+///
+/// @example scss
+///   .icon {
+///     @include fs-burger(
+///       $color: #fff,
+///       $gutter: 3px,
+///       $height: 3px,
+///       $transition-duration: 200ms,
+///       $width: 20px
+///     );
+///
+@mixin fs-burger(
+    $width: 30px,
+    $height: 5px,
+    $gutter: 3px,
+    $color: currentColor,
+    $border-radius: 0,
+    $transition-duration: 300ms
+  ) {
+    $burger-height: $height !global;
+    $burger-gutter: $gutter !global;
+    margin-bottom: $height + $gutter;
+    margin-top: $height + $gutter;
+    position: relative;
+    user-select: none;
+  
+    // Burger parts
+    // (---) top    -> &::before
+    // [---] middle -> &
+    // (---) bottom -> &::after
+    &,
+    &::before,
+    &::after {
+      background-color: $color;
+      @if $border-radius != 0 {
+        border-radius: $border-radius;
+      }
+      height: $height;
+      transition-duration: $transition-duration;
+      transition-property: background-color, transform;
+      width: $width;
+    }
+  
+    &::before,
+    &::after {
+      content: '';
+      left: 0;
+      position: absolute;
+    }
+  
+    &::before {
+      top: -($height + $gutter);
+    }
+  
+    &::after {
+      top: $height + $gutter;
+    }
+  }
+  
+  // Animate burger icon to a cross
+/// @group Abstract
+  ///
+  /// @example scss
+  ///   .icon {
+  ///     @include fs-burger(
+  ///       $color: #fff,
+  ///       $gutter: 3px,
+  ///       $height: 3px,
+  ///       $transition-duration: 200ms,
+  ///       $width: 20px
+  ///     );
+  ///
+  ///     &.is-active {
+  ///       @include fs-burger-to-cross;
+  ///     }
+  ///   }
+  ///
+  @mixin fs-burger-to-cross($color: auto) {
+    & {
+      background-color: transparent;
+    }
+  
+    @if ($color != auto) {
+      &:before,
+      &:after {
+        background-color: $color;
+      }
+    }
+  
+    &:before {
+      transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+    }
+  
+    &:after {
+      transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+    }
+  }
