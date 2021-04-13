@@ -1,0 +1,20 @@
+{
+    "links" : [
+    {
+      "text":"Twitter",
+      "url": "#t"
+    },
+    {
+      "text":"Facebook",
+      "url": "#f"
+    },
+    {
+      "text":"Google +",
+      "url": "#g"
+    },
+    {
+      "text":"Instagram",
+      "url": "#i"
+    }
+  ]
+}

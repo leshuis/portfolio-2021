@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-{{>head}}
+{{> templates/document-head}}
 
-<body>
-    {{>ancientbrowserwarning}}
-    <div class="wrapper">
-        {{>header}}
-        <main>
-            test
-           {{{picture 'source/images/shutterstock.jpg'}}}
-        </main>
-        {{>footer}}
-    </div>
+<body class="page_home">
+  {{>templates/ancientbrowserwarning}}
+
+  <div class="wrapper">
+    {{>templates/header}}
+    <main>
+
+      {{#listOfLinks social.links "text" "url"}}{{/listOfLinks}}
+
+
+    </main>
+    {{> templates/footer}}
+  </div>
 </body>
 
 </html>

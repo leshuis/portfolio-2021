@@ -10,7 +10,6 @@ var gulp = require('gulp'),
     fs = require('fs'),
     handlebars = require('gulp-compile-handlebars'),
     imagemin = require('gulp-imagemin'),
-    jshint = require('gulp-jshint'),
     merge = require('merge-stream'),
     notify = require('gulp-notify'),
     path = require('path'),
@@ -19,7 +18,6 @@ var gulp = require('gulp'),
     responsive = require('gulp-responsive-images'),
     sitemap = require('gulp-sitemap'),
     size = require('gulp-size'),
-    stylish = require('jshint-stylish'),
     sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     uncss = require('gulp-uncss'),
@@ -28,19 +26,13 @@ var gulp = require('gulp'),
     sass = require('gulp-dart-sass'),
     sassdoc = require('sassdoc'),
     bump = require('gulp-bump'),
-    dimensionOfImage = require('image-size'),
-    handlebar_variabels = require('./handlebar_vars.json');
+    hb = require('gulp-hb');
+
 
 const {
     series
 } = require('gulp');
 
-
-jshint.options = {
-    "esversion": 6,
-    "esnext": true,
-    "moz": true
-};
 
 /************************/
 
@@ -53,7 +45,7 @@ var getFolders = function (dir) {
         .filter(function (file) {
             return fs.statSync(path.join(dir, file)).isDirectory();
         });
-    for (var i = 0; i < folder.length; i++) {
+    for (let i = 0; i < folder.length; i++) {
         folders.push({
             path: folder[i],
             name: folder[i]
@@ -76,30 +68,36 @@ function clean_imageCache(callback) {
 
 /************************/
 
-function do_bump_patch(done){
+function do_bump_patch(done) {
     gulp.src('./package.json')
-    .pipe(bump({type:'patch'}))
-    .pipe(gulp.dest('./'));
+        .pipe(bump({
+            type: 'patch'
+        }))
+        .pipe(gulp.dest('./'));
     done();
-  };
+};
 
 /************************/
 
-function do_bump_minor(done){
+function do_bump_minor(done) {
     gulp.src('./package.json')
-    .pipe(bump({type:'minor'}))
-    .pipe(gulp.dest('./'));
+        .pipe(bump({
+            type: 'minor'
+        }))
+        .pipe(gulp.dest('./'));
     done();
-  };
+};
 
 /************************/
 
-function do_bump_major(done){
+function do_bump_major(done) {
     gulp.src('./package.json')
-    .pipe(bump({type:'major'}))
-    .pipe(gulp.dest('./'));
+        .pipe(bump({
+            type: 'major'
+        }))
+        .pipe(gulp.dest('./'));
     done();
-  };
+};
 
 /************************/
 
@@ -118,75 +116,21 @@ function copy_rootAndHtmlPages(done) {
 
 /************************/
 
+
 function process_handlebars(done) {
-    var options = {
-        ignorePartials: true, //ignores the unknown footer2 partial in the handlebars template, defaults to false
-        batch: ['./source/patterns/'],
-        helpers: {
-            capitals: function (str) {
-                return str.toUpperCase();
-            },
-            picture: function (url) {
-
-                dimensionOfImage(url, function (err, dimensions) {
-                    console.log(dimensions.width, dimensions.height)
-                  })
-
-                dimensionOfImage(url);
-                
-                var str = '<picture>';
-                var splitUrl = url.split(".");
-                var base = handlebar_variabels.site[0].imagebase;
-                str += "<source srcset='" + base + splitUrl[0] + "-300px." + splitUrl[1] + " 300w";
-                str += "," + base + splitUrl[0] + "-500px." + splitUrl[1] + " 500w";
-                str += "," + base + splitUrl[0] + "-700px." + splitUrl[1] + " 700w";
-                str += "," + base + splitUrl[0] + "-900px." + splitUrl[1] + " 900w";
-                str += "," + base + splitUrl[0] + "-1100px." + splitUrl[1] + " 1100w";
-                str += "," + base + splitUrl[0] + "-1300px." + splitUrl[1] + " 1300w'>";
-                str += "<source srcset='" + base + splitUrl[0] + "@1x." + splitUrl[1] + "'>";
-                str += "<source srcset='" + base + splitUrl[0] + "@2x." + splitUrl[1] + "' 2x>";
-                str += "<source srcset='" + base + splitUrl[0] + "@2x." + splitUrl[1] + "' 3x>";
-                str += "<source srcset='" + base + splitUrl[0] + "@2x." + splitUrl[1] + "' 4x>";
-                str += "<source type='image/webp' srcset='" + base + splitUrl[0] + "@1x.webp'>";
-                str += "<source type='image/webp' srcset='" + base + splitUrl[0] + "@2x.webp 2x'>";
-                str += "<source type='image/webp' srcset='" + base + splitUrl[0] + "@3x.webp 3x'>";
-                str += "<source type='image/webp' srcset='" + base + splitUrl[0] + "@4x.webp 4x'>";
-                str += "<img loading=lazy src='" + base + splitUrl[0] + "." + splitUrl[1] + "'>";
-                str += '<picture>';
-                return str;
-
-            },
-            now: function () {
-                return new Date().toLocaleString();
-            },
-            linkList: function (items, options) {
-                var out = "<ul>";
-
-                for (var i = 0, l = items.length; i < l; i++) {
-                    out = out + "<li><a href='" + items[i]['link'] + "'>" + items[i]['text'] + "</a></li>";
-                }
-
-                return out + "</ul>";
-            },
-            list: function (items, options) {
-                var out = "<ul>";
-
-                for (var i = 0, l = items.length; i < l; i++) {
-                    out = out + "<li>" + options.fn(items[i]) + "</li>";
-                }
-
-                return out + "</ul>";
-            }
-        }
-    };
-
     return gulp.src('./source/content/**/*.handlebars')
-        .pipe(handlebars(handlebar_variabels, options))
+        .pipe(hb({
+                debug: false
+            })
+            .partials('./source/patterns/**/*.handlebars')
+            .helpers('./source/helpers/**/*.js')
+            .data('./source/data/**/*.json')
+        )
         .pipe(rename(function (path) {
             path.extname = ".html"
         }))
-        .pipe(connect.reload())
-        .pipe(gulp.dest('./dist/'));
+        .pipe(gulp.dest('./dist/'))
+        .pipe(connect.reload());
     done();
 };
 
@@ -205,11 +149,8 @@ function process_scripts(done) {
             return gulp.src(path.join('./source/scripts/', folder.path, '/*.js'))
                 // .pipe(size({showFiles : true}))
                 .pipe(sourcemaps.init())
-                .pipe(jshint())
-                .pipe(jshint.reporter(stylish))
                 .pipe(babel({
-                    presets: ['es2015'],
-
+                    presets: ["@babel/preset-env"]
                 }))
                 .pipe(concat(folder.name + '.js'))
                 .pipe(gulp.dest('./dist/scripts'))
@@ -346,8 +287,16 @@ function do_imagesResponsive(done) {
                 upscale: false,
                 suffix: '-1300px'
             }, {
+                width: 1500,
+                upscale: false,
+                suffix: '-1500px'
+            }, {
+                width: 1700,
+                upscale: false,
+                suffix: '-1700px'
+            }, {
                 width: '100%',
-                suffix: '@1ßx'
+                suffix: '@1x'
             }, {
                 width: '200%',
                 suffix: '@2x'
