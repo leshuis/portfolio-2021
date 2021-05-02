@@ -1,0 +1,74 @@
+@use '../vendors/breakpoints' as bq;
+
+$columns: 12;
+
+@include bq.respond-above(md) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+  }
+}
+
+@for $i from 1 through $columns {
+  .grid-start-#{$i} {
+    grid-column-start: #{$i};
+  }
+  .grid-end-#{$i} {
+    grid-column-end: #{$i + 1};
+  }
+
+  .grid-span-#{$i} {
+    grid-column-end: span #{$i};
+  }
+}
+
+*[class^="grid-start"] {
+  text-align: left;
+  grid-row-start: 1;
+}
+
+@each $name, $glyph in bq.$breakpoints {
+  @include bq.respond-above(#{$name}) {
+    @for $i from 1 through $columns {
+      .grid-start-#{$name}-#{$i} {
+        grid-column-start: #{$i};
+      }
+    }
+  }
+}
+
+.cell-horz-start {
+  justify-self: start;
+}
+
+.cell-horz-center {
+  justify-self: center;
+}
+
+.cell-horz-end {
+  justify-self: end;
+}
+
+.cell-horz-full {
+  justify-self: stretch;
+}
+
+.cell-vert-start {
+  align-self: start;
+}
+.cell-vert-center {
+  align-self: center;
+}
+.cell-vert-end {
+  align-self: end;
+}
+.cell-vert-full {
+  align-self: stretch;
+}
+
+.wrapper {
+  // max-width: 1024px;
+  margin: 0 auto;
+}

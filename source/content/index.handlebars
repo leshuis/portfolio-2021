@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {{> templates/document-head}}
 
+
 <body class="page_home">
   {{>templates/ancientbrowserwarning}}
 
@@ -8,8 +9,16 @@
     {{>templates/header}}
     <main>
 
-      {{#listOfLinks social.links "text" "url"}}{{/listOfLinks}}
+      <div class="grid">
+        <div class="grid-start-2 grid-span-4">
+          {{#listOfLinks social.links "text" "url"}}{{/listOfLinks}}
 
+
+          <a href="test.html">Form page</a>
+          <a href="picture.html">Picture page</a>
+
+        </div>
+      </div>
 
     </main>
     {{> templates/footer}}

@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+const gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     babel = require('gulp-babel'),
     cache = require('gulp-cache'),
@@ -26,7 +26,10 @@ var gulp = require('gulp'),
     sass = require('gulp-dart-sass'),
     sassdoc = require('sassdoc'),
     bump = require('gulp-bump'),
-    hb = require('gulp-hb');
+    axe = require('gulp-axe-cli'),
+    ts = require('gulp-typescript'),
+    hb = require('gulp-hb'),
+    workboxBuild = require('workbox-build');
 
 
 const {
@@ -129,13 +132,31 @@ function process_handlebars(done) {
         .pipe(rename(function (path) {
             path.extname = ".html"
         }))
+        .pipe(axe())
         .pipe(gulp.dest('./dist/'))
+        .pipe(notify({
+            title: '>> Handlebars processed <<',
+            message: 'task complete',
+            onLast: true
+        }))
         .pipe(connect.reload());
     done();
 };
 
 
 /******* =scripts *****************/
+
+
+function process_typescript(done){
+        return gulp.src('src/**/*.ts')
+            .pipe(ts({
+                noImplicitAny: true,
+                outFile: 'output.js'
+            }))
+            .pipe(gulp.dest('./dist/scripts'));
+
+        done();
+}
 
 function process_scripts(done) {
     var folders = getFolders('./source/scripts/');
@@ -204,9 +225,6 @@ function process_styles(done) {
 function clean_styles(done) {
     return gulp.src('./dist/styles/main.css')
         .pipe(csso())
-        .pipe(uncss({
-            html: ['./dist/**/*.html']
-        }))
         .pipe(rename({
             suffix: '.clean'
         }))
@@ -216,14 +234,13 @@ function clean_styles(done) {
         }))
         .pipe(cssmin())
         .pipe(gulp.dest('./dist/styles'))
-        .pipe(connect.reload())
+        // .pipe(connect.reload())
         .pipe(notify({
             title: '>> Styles cleaned <<',
             message: 'task complete',
             onLast: true,
             sound: 'Blow'
         }));
-    done();
 };
 
 /********* =images ***************/
@@ -260,6 +277,12 @@ function do_imagesResponsive(done) {
                 width: 300,
                 upscale: false,
                 suffix: '-300px'
+            }, {
+                width: 300,
+                height:300,
+                suffix: '-crop-300px',
+                crop: true,
+                gravity: 'Center',
             }, {
                 width: 500,
                 upscale: false,
@@ -359,7 +382,21 @@ function make_sitemap(done) {
     done();
 };
 
-/********* =steps ***************/
+/******************************/
+
+const buildSW = () => {
+    // This will return a Promise
+    return workboxBuild.generateSW({
+      globDirectory: 'dist',
+      globPatterns: [
+        '**/*.{html,json,js,css}',
+      ],
+      swDest: 'dist/sw.js',
+    });
+  };
+
+/******************************/
+
 
 exports.start = series(
     do_bump_patch,
@@ -367,6 +404,7 @@ exports.start = series(
     copy_rootAndHtmlPages,
     process_handlebars,
     process_styles,
+    clean_styles,
     process_scripts,
     process_images,
     do_copyAssets,
@@ -384,3 +422,6 @@ exports.default = series(
     do_copyAssets,
     do_imagesResponsive,
     do_connect)
+
+/******************************/
+

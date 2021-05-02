@@ -1,4 +1,4 @@
-@use "../abstracts/mixins";
+@use "../abstracts/mixins" as mixin;
 
 
 /* poppins-300 - latin */
@@ -56,11 +56,27 @@
   }
   
   h1, .h1 {
-    @include mixins.fluid-type(16, 64, 320, 1280);
+    @include mixin.fluid-type(34, 64, 320, 1280);
   }
   
   h2, .h2 {
-    @include mixins.fluid-type(14, 52, 320, 1280);
+    @include mixin.fluid-type(30, 52, 320, 1280);
+  }
+
+  h3, .h3 {
+    @include mixin.fluid-type(27, 46, 320, 1280);
+  }
+
+  h4, .h4 {
+    @include mixin.fluid-type(24, 40, 320, 1280);
+  }
+
+  h5, .h5 {
+    @include mixin.fluid-type(21, 36, 320, 1280);
+  }
+
+  h6, .h6 {
+    @include mixin.fluid-type(18, 32, 320, 1280);
   }
 
   h1, h2, h3 { 

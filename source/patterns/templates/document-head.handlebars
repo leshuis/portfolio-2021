@@ -1,4 +1,6 @@
-<html  itemscope itemtype="http://schema.org/Article" class="no-js"> <!--<![endif]-->
+<html lang="en" itemtype="http://schema.org/Article" class="no-js">
+<!--<![endif]-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1,requiresActiveX=true">
@@ -68,13 +70,14 @@
 
     <meta http-equiv="cleartype" content="on">
 
-    <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" href="/startup-retina.png">
+    <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)"
+        href="/startup-retina.png">
 
-    <link href="/apple-touch-icon.png" rel="apple-touch-icon"/>
-    <link href="/apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"/>
-    <link href="/apple-touch-icon-120x120.png" rel="apple-touch-icon" sizes="120x120"/>
-    <link href="/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"/>
-    <link href="/apple-touch-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"/>
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
+    <link href="/apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+    <link href="/apple-touch-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+    <link href="/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+    <link href="/apple-touch-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
     <!--<link href="/icon-hires.png" rel="icon" sizes="192x192"/>-->
     <!--<link href="/icon-normal.png" rel="icon" sizes="128x128"/>-->
 
@@ -100,7 +103,26 @@
     <!-- FAVICONS END -->
 
     <link rel="stylesheet" href="/styles/main.min.css">
-    <script src="https://kit.fontawesome.com/8e4f71d223.js" crossorigin="anonymous"></script>
+    <script>
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+            // Use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
+    <script type="module">
+        document.documentElement.classList.remove('no-js');
+        document.documentElement.classList.add('js');
+    </script>
+    <link rel="preload" href="fonts/poppins-v15-latin-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="fonts/poppins-v15-latin-300.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="fonts/poppins-v15-latin-700.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-
-
+<!-- More info: https://css-tricks.com/prefetching-preloading-prebrowsing/ -->
+{{!-- <link rel="dns-prefetch" href="//example.com/">
+<link rel="preconnect" href="https://www.example.com/">
+<link rel="prefetch" href="https://www.example.com/">
+<link rel="prerender" href="https://example.com/">
+<link rel="preload" href="image.png" as="image"> --}}
