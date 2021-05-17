@@ -12,8 +12,8 @@
 }
 
 main {
-  background-color: #111;
-  background: linear-gradient(270deg, #ccc, #d9e287, #d8e42d);
+  background-color: #eee;
+  background: linear-gradient(270deg, #fff, #333, #999);
   background-size: 600% 600%;
   animation: backgroundScroll 30s linear infinite alternate;
   // @include bq.respond-above(md) {

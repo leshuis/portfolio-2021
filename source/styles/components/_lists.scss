@@ -1,0 +1,17 @@
+.list__clean {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        padding-top: 1rem;
+
+        li {
+            padding-top: 0;
+        }
+    }
+
+    li:first-child {
+        padding-top: 0;
+    }
+}
