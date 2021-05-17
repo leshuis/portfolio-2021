@@ -640,6 +640,43 @@ h1, h2, h3 {
   text-rendering: optimizeLegibility;
 }
 
+.list__clean {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.list__clean li {
+  padding-top: 1rem;
+}
+.list__clean li li {
+  padding-top: 0;
+}
+.list__clean li:first-child {
+  padding-top: 0;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 1rem;
+}
+.card__social {
+  background-color: rgba(255, 128, 255, 0.75);
+}
+.card__courses {
+  background-color: rgba(255, 255, 128, 0.75);
+}
+.card__education {
+  background-color: rgba(128, 255, 255, 0.75);
+}
+.card__jobs {
+  background-color: rgba(255, 0, 255, 0.75);
+}
+.card__skills {
+  background-color: rgba(255, 255, 0, 0.75);
+}
+
 .wrapper > footer {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 0px;
@@ -676,10 +713,10 @@ h1, h2, h3 {
 }
 
 main {
-  background-color: #111;
-  background: -webkit-gradient(linear, right top, left top, from(#ccc), color-stop(#d9e287), to(#d8e42d));
-  background: -o-linear-gradient(right, #ccc, #d9e287, #d8e42d);
-  background: linear-gradient(270deg, #ccc, #d9e287, #d8e42d);
+  background-color: #eee;
+  background: -webkit-gradient(linear, right top, left top, from(#fff), color-stop(#333), to(#999));
+  background: -o-linear-gradient(right, #fff, #333, #999);
+  background: linear-gradient(270deg, #fff, #333, #999);
   background-size: 600% 600%;
   -webkit-animation: backgroundScroll 30s linear infinite alternate;
           animation: backgroundScroll 30s linear infinite alternate;
