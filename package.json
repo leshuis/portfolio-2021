@@ -1,9 +1,9 @@
 {
   "name": "leonards-scaffolding",
   "description": "scaffolding for regular project",
-  "version": "2.0.216",
+  "version": "2.0.217",
   "devDependencies": {
-    "@babel/core": "^7.14.2",
+    "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "babel-loader": "^8.2.2",
     "del": "^6.0.0",
@@ -40,7 +40,7 @@
     "image-size": "^1.0.0",
     "jshint": "^2.12.0",
     "jshint-stylish": "^2.2.1",
-    "npm": "^7.13.0",
+    "npm": "^7.14.0",
     "run-sequence": "^2.2.1",
     "sassdoc": "^2.7.3",
     "workbox-build": "^6.1.5"
