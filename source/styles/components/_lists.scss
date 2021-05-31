@@ -1,7 +1,10 @@
+@use '../base/typography' as *;
+
 .list__clean {
     list-style: none;
     padding: 0;
     margin: 0;
+    
 
     li {
         padding-top: 1rem;
@@ -14,4 +17,19 @@
     li:first-child {
         padding-top: 0;
     }
+}
+
+.list {
+    &__header {
+        text-align: center;
+        color: var(--color-one);
+        font-size: 2.4rem;
+        background-color: var(--color-two);
+        margin: -10px -10px 0px -10px;
+        padding: 10px;
+        // filter: drop-shadow(1px 2px 5px var(--color-two));
+          // text-shadow: 2px 0 0 var(--color-one), -2px 0 0 var(--color-one), 0 2px 0 var(--color-one), 0 -2px 0 var(--color-one), 1px 1px var(--color-one), -1px -1px 0 var(--color-one), 1px -1px 0 var(--color-one), -1px 1px 0 var(--color-one);
+    
+      }
+    
 }

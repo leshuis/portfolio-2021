@@ -462,14 +462,6 @@ template {
     ((var(--fc-s-min) / 16) * 1rem) + (var(--fc-l-max) - var(--fc-s-min)) *
       var(--fluid-bp)
   );
-  /* CSS HEX */
-  --middle-blue: #56c3dbff;
-  --arylide-yellow: #e0ce67ff;
-  --cadet-blue: #5d96a3ff;
-  --middle-purple: #db8cb3ff;
-  --light-blue: #c2e7f0ff;
-  /* SCSS HEX */
-  /* SCSS Gradient */
 }
 
 *,
@@ -655,26 +647,35 @@ h1, h2, h3 {
   padding-top: 0;
 }
 
+.list__header {
+  text-align: center;
+  color: var(--color-one);
+  font-size: 2.4rem;
+  background-color: var(--color-two);
+  margin: -10px -10px 0px -10px;
+  padding: 10px;
+}
+
 .card {
-  background-color: rgba(255, 255, 255, 0.75);
-  border-radius: 1rem;
-  margin: 1rem;
+  background-color: var(--color-one);
+  border: 1px solid var(--color-two);
+  margin: 70px 1rem;
   padding: 1rem;
+  -webkit-filter: drop-shadow(0px 0px 5px #000);
+          filter: drop-shadow(0px 0px 5px #000);
 }
-.card__social {
-  background-color: rgba(255, 128, 255, 0.75);
+
+.social__name,
+.course__name,
+.experience__name,
+.skill__name,
+.education__name {
+  color: var(--color-three);
 }
-.card__courses {
-  background-color: rgba(255, 255, 128, 0.75);
-}
-.card__education {
-  background-color: rgba(128, 255, 255, 0.75);
-}
-.card__jobs {
-  background-color: rgba(255, 0, 255, 0.75);
-}
-.card__skills {
-  background-color: rgba(255, 255, 0, 0.75);
+
+.experience__projecten {
+  margin: 5px 0 10px 0;
+  font-size: 10px;
 }
 
 .wrapper > footer {
@@ -691,8 +692,9 @@ h1, h2, h3 {
       -ms-flex: 1 1 0px;
           flex: 1 1 0;
   padding: 5px 20px;
-  background-color: white;
-  border-bottom: 1px solid grey;
+  background-color: var(--color-one);
+  border-bottom: 1px solid var(--color-four);
+  color: var(--color-three);
 }
 
 .wrapper {
@@ -704,47 +706,24 @@ h1, h2, h3 {
       -ms-flex-direction: column;
           flex-direction: column;
   min-height: 100vh;
+  background-color: #e5e5f7;
 }
 .wrapper > main {
   -webkit-box-flex: 100;
       -ms-flex: 100 1 auto;
           flex: 100 1 auto;
   padding: 10px 20px;
+  opacity: 0.8;
+  background-size: 10px 10px;
+  background-image: -o-repeating-linear-gradient(45deg, var(--color-three) 0, var(--color-three) 1px, var(--color-two) 0, var(--color-two) 50%);
+  background-image: repeating-linear-gradient(45deg, var(--color-three) 0, var(--color-three) 1px, var(--color-two) 0, var(--color-two) 50%);
 }
 
 main {
-  background-color: #eee;
-  background: -webkit-gradient(linear, right top, left top, from(#fff), color-stop(#333), to(#999));
-  background: -o-linear-gradient(right, #fff, #333, #999);
-  background: linear-gradient(270deg, #fff, #333, #999);
+  background-color: var(--color-four);
   background-size: 600% 600%;
-  -webkit-animation: backgroundScroll 30s linear infinite alternate;
-          animation: backgroundScroll 30s linear infinite alternate;
 }
 
-@-webkit-keyframes backgroundScroll {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 100%;
-  }
-}
-
-@keyframes backgroundScroll {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 100%;
-  }
-}
 @media (min-width: 76em) {
   .grid {
     display: grid;
@@ -1234,4 +1213,26 @@ main {
 
 .wrapper {
   margin: 0 auto;
+}
+
+:root {
+  --color-one: #fff;
+  --color-two: #000;
+  --color-three: #f00;
+  --color-four: #d4bb9c;
+  /* CSS HEX */
+  --middle-blue: #56c3dbff;
+  --arylide-yellow: #e0ce67ff;
+  --cadet-blue: #5d96a3ff;
+  --middle-purple: #db8cb3ff;
+  --light-blue: #c2e7f0ff;
+  /* SCSS Gradient */
+  --gradient: linear-gradient(
+    0deg,
+    #56c3dbff,
+    #e0ce67ff,
+    #5d96a3ff,
+    #db8cb3ff,
+    #c2e7f0ff
+  );
 }

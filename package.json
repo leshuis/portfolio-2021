@@ -1,14 +1,14 @@
 {
   "name": "leonards-scaffolding",
   "description": "scaffolding for regular project",
-  "version": "2.0.217",
+  "version": "2.0.253",
   "devDependencies": {
     "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-env": "^7.14.4",
     "babel-loader": "^8.2.2",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
+    "gulp-autoprefixer": "^8.0.0",
     "gulp-axe-cli": "^1.0.1",
     "gulp-babel": "^8.0.0",
     "gulp-bump": "^3.2.0",
@@ -38,9 +38,9 @@
     "gulp4-run-sequence": "^1.0.1",
     "handlebars-helpers": "^0.10.0",
     "image-size": "^1.0.0",
-    "jshint": "^2.12.0",
+    "jshint": "^2.13.0",
     "jshint-stylish": "^2.2.1",
-    "npm": "^7.14.0",
+    "npm": "^7.15.0",
     "run-sequence": "^2.2.1",
     "sassdoc": "^2.7.3",
     "workbox-build": "^6.1.5"
@@ -51,6 +51,6 @@
     "gulp-typescript": "*",
     "lodash": "^4.17.21",
     "primitive": "^1.0.1",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.2"
   }
 }

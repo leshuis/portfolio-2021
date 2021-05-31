@@ -1,0 +1,23 @@
+:root {
+  --color-one: #fff;
+  --color-two: #000;
+  --color-three: #f00;
+  --color-four: #d4bb9c;
+
+  /* CSS HEX */
+  --middle-blue: #56c3dbff;
+  --arylide-yellow: #e0ce67ff;
+  --cadet-blue: #5d96a3ff;
+  --middle-purple: #db8cb3ff;
+  --light-blue: #c2e7f0ff;
+
+  /* SCSS Gradient */
+  --gradient: linear-gradient(
+    0deg,
+    #56c3dbff,
+    #e0ce67ff,
+    #5d96a3ff,
+    #db8cb3ff,
+    #c2e7f0ff
+  );
+}
