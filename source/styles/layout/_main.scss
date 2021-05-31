@@ -4,31 +4,25 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #e5e5f7;
 
   > main {
     flex: 100 1 auto;
     padding: 10px 20px;
+    opacity: 0.8;
+    background-size: 10px 10px;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--color-three) 0,
+      var(--color-three) 1px,
+      var(--color-two) 0,
+      var(--color-two) 50%
+    );
+    
   }
 }
 
 main {
-  background-color: #eee;
-  background: linear-gradient(270deg, #fff, #333, #999);
+  background-color: var(--color-four);
   background-size: 600% 600%;
-  animation: backgroundScroll 30s linear infinite alternate;
-  // @include bq.respond-above(md) {
-  //   background: rgb(123, 238, 123);
-  // }
-}
-
-@keyframes backgroundScroll {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 100%;
-  }
 }

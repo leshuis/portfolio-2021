@@ -1,11 +1,32 @@
 {
-    "experience": [
-      {
-        "name": "experience 1"
-      },
-      {
-        "name": "experience 2"
-      }
-    ]
-  }
-  
+  "experience": [
+    {
+      "name": "Rabobank",
+      "position": "Frontend Developer/Designer",
+      "years": "mei 2019 - sep 2020",
+      "projecten": " nieuwe rabobank.nl site, huidige rabobank.nl,rabobank.com, omzetting BEM structuur, angular components" 
+    },
+    {
+      "name": "Makerstreet / Touchtribe",
+      "position": "Frontend Developer/Designer",
+      "years": "mei 2012 - april 2019",
+      "projecten": "huidige rabobank.nl / .com, ‘straks heb je het nodig’rabobank, ‘jaarverslag 2016/17/18’ rabobank, Inshared.nl,diverse zilveren kruis campagne"
+    },
+    {
+      "name": "Maxdoro",
+      "position": "Frontend Developer/Designer",
+      "years": "sept 2011 - april 2012",
+      "projecten": "IAmsterdam Sitecore,Sitecore CMS training, diverse website voor politie"
+    },
+    {
+      "name": "Evident",
+      "position": "Frontend Developer/Designer",
+      "years": "mei 2008 - aug 2011"
+    },
+    {
+      "name": "Etc",
+      "position": "Frontend Developer/Designer",
+      "years": "1999 - 2008"
+    }
+  ]
+}

@@ -1,20 +1,22 @@
 {
-    "links" : [
+  "social": [
     {
-      "text":"Twitter",
-      "url": "#t"
+      "link": {
+        "text": "Twitter",
+        "url": "#t"
+      }
     },
     {
-      "text":"Facebook",
-      "url": "#f"
+      "link": {
+        "text": "Facebook",
+        "url": "#f"
+      }
     },
     {
-      "text":"Google +",
-      "url": "#g"
-    },
-    {
-      "text":"Instagram",
-      "url": "#i"
+      "link": {
+        "text": "Google",
+        "url": "#g"
+      }
     }
   ]
 }

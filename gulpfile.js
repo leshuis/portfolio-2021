@@ -353,6 +353,7 @@ function do_watch(done) {
     gulp.watch("./source/scripts/**/*", process_scripts);
     gulp.watch("./source/images/**/*", process_images);
     gulp.watch("./source/**/*.handlebars", process_handlebars);
+    gulp.watch("./source/**/*.json", process_handlebars);
     done();
 
 };
